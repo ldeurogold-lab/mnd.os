@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#102f55" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <title>Mái Nhà Đẹp OS</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <div id="login" class="login">
+      <form id="loginForm">
+        <div class="brandLogin">
+          <div class="brandmark">▥</div>
+          <div>
+            <h1>MÁI NHÀ ĐẸP</h1>
+            <p>ĐIỀU HÀNH CƠ KHÍ</p>
+          </div>
+        </div>
+        <h2>Đăng nhập hệ thống</h2>
+        <label
+          >Email<input
+            name="email"
+            type="email"
+            autocomplete="username"
+            required /></label
+        ><label
+          >Mật khẩu<input
+            name="password"
+            type="password"
+            autocomplete="current-password"
+            required
+        /></label>
+        <div id="loginError" class="error"></div>
+        <button>Đăng nhập</button>
+      </form>
+    </div>
+    <div id="app" hidden>
+      <aside id="sidebar">
+        <div class="brand">
+          <div class="brandmark">▥</div>
+          <div><strong>MÁI NHÀ ĐẸP</strong><small>ĐIỀU HÀNH CƠ KHÍ</small></div>
+        </div>
+        <div class="navlabel">QUẢN TRỊ VẬN HÀNH</div>
+        <nav>
+          <button class="active" data-view="operations">
+            ▦ <span>Vận hành</span></button
+          ><button data-view="overview">◴ <span>Tổng quan</span></button
+          ><button data-view="projects">▣ <span>Dự án</span></button
+          ><button data-view="estimate">▤ <span>Dự toán & Báo giá</span></button
+          ><button data-view="production">♜ <span>Sản xuất</span></button
+          ><button data-view="construction">♟ <span>Thi công</span></button
+          ><button data-view="warehouse">◈ <span>Vật tư & Kho</span></button
+          ><button data-view="finance" class="financeNav">
+            ₫ <span>Tài chính</span></button
+          ><button data-view="users" class="usersNav">
+            ♙ <span>Nhân sự</span></button
+          ><button data-view="rules">♢ <span>Quy chế & Phê duyệt</span></button>
+        </nav>
+        <div class="profile">
+          <b id="userName"></b><span id="userRole"></span
+          ><button id="logout">Đăng xuất</button>
+        </div>
+      </aside>
+      <main>
+        <header>
+          <button id="mobileMenu">☰</button>
+          <div>
+            <h1>Trung tâm điều hành</h1>
+            <p id="today"></p>
+          </div>
+          <label class="globalSearch"
+            >⌕ <input id="globalSearch" placeholder="Tìm dự án, khách hàng..."
+          /></label>
+          <div class="notify">♧</div>
+          <div class="avatar">D</div>
+          <div class="headUser">
+            <b id="headerName">Giám đốc</b><span>Toàn quyền hệ thống</span>
+          </div>
+        </header>
+        <section id="operations" class="view">
+          <div class="pageTitle">
+            <div>
+              <h2>Điều hành sản xuất & thi công</h2>
+              <p>
+                Giao việc, chuyển công đoạn và kiểm soát tiến độ theo thời gian
+                thực
+              </p>
+            </div>
+            <div class="opsActions">
+              <label
+                >⌕
+                <input id="taskSearch" placeholder="Tìm công việc..." /></label
+              ><button id="refresh">↻</button
+              ><button class="primary manageTask" onclick="openModal('task')">
+                ＋ Giao việc mới
+              </button>
+            </div>
+          </div>
+          <section id="summary" class="summary"></section>
+          <div id="board" class="board"></div>
+        </section>
+        <section id="overview" class="view" hidden>
+          <div class="pageTitle">
+            <div>
+              <h2>Tổng quan công ty</h2>
+              <p>Dữ liệu thực lấy trực tiếp từ PostgreSQL</p>
+            </div>
+          </div>
+          <div id="overviewKpis" class="summary"></div>
+          <div class="panel">
+            <h3>Cơ cấu điều hành công ty</h3>
+            <p id="orgText"></p>
+            <div id="orgCards" class="orgCards"></div>
+          </div>
+          <div class="twoCols">
+            <div class="panel">
+              <h3>Dự án đang triển khai</h3>
+              <div id="overviewProjects"></div>
+            </div>
+            <div class="panel">
+              <h3>Cảnh báo điều hành</h3>
+              <div id="alerts"></div>
+            </div>
+          </div>
+        </section>
+        <section id="projects" class="view" hidden>
+          <div class="pageTitle">
+            <div>
+              <h2>Dự án</h2>
+              <p>Hợp đồng, ngân sách và tiến độ thực hiện</p>
+            </div>
+            <button class="primary manageTask" onclick="openModal('project')">
+              ＋ Tạo dự án
+            </button>
+          </div>
+          <div id="projectList" class="projectList"></div>
+        </section>
+        <section id="estimate" class="view" hidden>
+          <div class="pageTitle">
+            <div>
+              <h2>Dự toán & Báo giá</h2>
+              <p>Giá trị hợp đồng và ngân sách được duyệt theo dự án</p>
+            </div>
+            <button class="primary financeNav" onclick="openModal('estimate')">
+              ＋ Lập dự toán
+            </button>
+          </div>
+          <div id="estimateList" class="panel"></div>
+        </section>
+        <section id="production" class="view" hidden>
+          <div class="pageTitle">
+            <div>
+              <h2>Sản xuất</h2>
+              <p>Việc của phòng Sản xuất và báo cáo tại xưởng</p>
+            </div>
+            <button class="primary manageTask" onclick="openModal('task')">
+              ＋ Giao việc sản xuất
+            </button>
+          </div>
+          <div id="productionList" class="deptList"></div>
+        </section>
+        <section id="construction" class="view" hidden>
+          <div class="pageTitle">
+            <div>
+              <h2>Thi công</h2>
+              <p>Việc lắp đặt, nghiệm thu và báo cáo hiện trường</p>
+            </div>
+            <button class="primary manageTask" onclick="openModal('task')">
+              ＋ Giao việc thi công
+            </button>
+          </div>
+          <div id="constructionList" class="deptList"></div>
+        </section>
+        <section id="warehouse" class="view" hidden>
+          <div class="pageTitle">
+            <div>
+              <h2>Vật tư & Kho</h2>
+              <p>Hồ sơ vật tư, Excel, PDF và chứng từ dự án</p>
+            </div>
+            <div>
+              <button onclick="openModal('material')">＋ Vật tư</button
+              ><button class="primary" onclick="openModal('movement')">
+                ＋ Nhập/Cấp vật tư
+              </button>
+            </div>
+          </div>
+          <div id="stockSummary" class="summary"></div>
+          <div id="materialsList" class="panel table"></div>
+          <div id="movementsList" class="panel table"></div>
+          <div id="recordsList" class="panel"></div>
+        </section>
+        <section id="finance" class="view" hidden>
+          <div class="pageTitle">
+            <div>
+              <h2>Tài chính</h2>
+              <p>Tài khoản công ty, thu–chi và dòng tiền theo từng lô dự án</p>
+            </div>
+            <div>
+              <button onclick="openModal('account')">＋ Tài khoản</button>
+              <button class="primary" onclick="openModal('transaction')">
+                ＋ Thu–chi
+              </button>
+            </div>
+          </div>
+          <div id="accounts" class="accounts"></div>
+          <div id="projectCosts" class="panel table"></div>
+          <div class="panel table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Ngày</th>
+                  <th>Nội dung</th>
+                  <th>Dự án/lô</th>
+                  <th>Tài khoản</th>
+                  <th>Thu/Chi</th>
+                  <th>Số tiền</th>
+                </tr>
+              </thead>
+              <tbody id="transactions"></tbody>
+            </table>
+          </div>
+        </section>
+        <section id="users" class="view" hidden>
+          <div class="pageTitle">
+            <div>
+              <h2>Nhân sự & phân quyền</h2>
+              <p>Cơ cấu 17 người và tài khoản đăng nhập từng phòng ban</p>
+            </div>
+            <div>
+              <button onclick="openModal('employee')">＋ Thêm nhân sự</button>
+              <button class="primary" onclick="openModal('user')">
+                ＋ Tạo tài khoản
+              </button>
+            </div>
+          </div>
+          <div id="departmentSummary" class="summary"></div>
+          <div class="panel table">
+            <h3>Danh sách nhân sự</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>Họ tên</th>
+                  <th>Phòng ban</th>
+                  <th>Chức vụ</th>
+                  <th>Điện thoại</th>
+                  <th>Trạng thái</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="employeeList"></tbody>
+            </table>
+          </div>
+          <div class="panel table">
+            <h3>Tài khoản đăng nhập</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>Họ tên</th>
+                  <th>Email</th>
+                  <th>Phòng ban</th>
+                  <th>Vai trò</th>
+                  <th>Trạng thái</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="userList"></tbody>
+            </table>
+          </div>
+        </section>
+        <section id="rules" class="view" hidden>
+          <div class="pageTitle">
+            <div>
+              <h2>Quy chế & Phê duyệt</h2>
+              <p>Kiểm soát tài chính, tiến độ, nghiệm thu và quyết toán</p>
+            </div>
+          </div>
+          <div class="rulesGrid">
+            <article>
+              <b>Phê duyệt dự toán</b>
+              <p>CEO/Ban quản trị duyệt trước khi mua vật tư.</p>
+            </article>
+            <article>
+              <b>Kiểm soát chi phí</b>
+              <p>Kế toán ghi thu–chi theo đúng dự án và lô.</p>
+            </article>
+            <article>
+              <b>Nghiệm thu</b>
+              <p>Sản xuất, thi công tải ảnh và biên bản làm căn cứ.</p>
+            </article>
+          </div>
+          <div class="panel table">
+            <h3>Nghiệm thu chờ duyệt</h3>
+            <div id="inspectionList"></div>
+          </div>
+          <div class="panel table">
+            <h3>Nhật ký kiểm soát</h3>
+            <div id="auditList"></div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <dialog id="workflowModal" class="workflowModal">
+      <button class="close" onclick="workflowModal.close()">×</button>
+      <div id="workflowContent"></div>
+    </dialog>
+    <dialog id="modal">
+      <button class="close" onclick="modal.close()">×</button>
+      <form id="dataForm">
+        <h2 id="modalTitle"></h2>
+        <div id="fields"></div>
+        <div id="formError" class="error"></div>
+        <button class="primary">Lưu dữ liệu</button>
+      </form>
+    </dialog>
+    <dialog id="recordModal">
+      <button class="close" onclick="recordModal.close()">×</button>
+      <form id="recordForm" enctype="multipart/form-data">
+        <h2>Báo cáo & hồ sơ</h2>
+        <input type="hidden" name="taskId" id="recordTaskId" /><label
+          >Loại báo cáo<select name="recordType">
+            <option>Báo cáo sản xuất</option>
+            <option>Báo cáo thi công</option>
+            <option>Ảnh hiện trường</option>
+            <option>Biên bản nghiệm thu</option>
+            <option>Hồ sơ dự toán/báo giá</option>
+          </select></label
+        ><label>Nội dung<textarea name="note" rows="4"></textarea></label
+        ><label class="upload"
+          >Chụp ảnh hoặc chọn PDF/Excel<input
+            name="file"
+            type="file"
+            accept="image/*,.pdf,.xls,.xlsx,.csv"
+            capture="environment" /></label
+        ><button class="primary">Ghi nhận báo cáo</button>
+      </form>
+    </dialog>
+    <script src="/app.js"></script>
+    <script>
+      if ("serviceWorker" in navigator)
+        navigator.serviceWorker.register("/sw.js");
+    </script>
+  </body>
+</html>

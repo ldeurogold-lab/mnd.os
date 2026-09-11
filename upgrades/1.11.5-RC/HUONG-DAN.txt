@@ -1,0 +1,71 @@
+MÁI NHÀ ĐẸP OS 1.11.5 RC — NÚT TẢI LẠI DỮ LIỆU TOÀN APP
+
+NÚT ↻ TẢI LẠI
+- Hiển thị cho tất cả phòng ban sau khi đăng nhập.
+- Nạp dữ liệu mới nhất từ PostgreSQL mà không đăng xuất.
+- Giữ nguyên màn hình người dùng đang làm việc.
+- Có trạng thái: Đang tải…, Đã cập nhật và Tải lại lỗi.
+- Máy tính: góc trên bên phải. Điện thoại: góc dưới bên phải.
+
+CÀI BẢN NÂNG CẤP TRÊN MÁY CEO
+1. Cần có bản Nhận thầu & Giao khoán 1.9 trở lên.
+2. Giải nén bộ này vào thư mục riêng và chạy NANG-CAP.bat.
+3. Bộ cài tự tìm app đang chạy, sao lưu trước và giữ nguyên .env, tài khoản,
+   PostgreSQL, hồ sơ, Agent AI, Cloudflare Tunnel và Docker volume.
+4. Khi báo thành công, mở https://mnd-rc.eurogoldos.vn và nhấn Ctrl+F5.
+
+THIẾT LẬP BA CỔ ĐÔNG
+CEO vào Nhân sự > Tạo tài khoản. Với mỗi cổ đông:
+- Phòng ban: Ban quản trị.
+- Vai trò đề nghị: Điều hành.
+- Trạng thái: Hoạt động.
+Quyền đồng điều hành được xác định bằng Phòng ban = Ban quản trị. Không tạo thêm
+tài khoản có phòng ban này nếu người đó không phải thành viên Ban quản trị.
+
+QUYỀN CỦA MỌI THÀNH VIÊN BAN QUẢN TRỊ
+- Xem tổng thể các phòng ban và dữ liệu tài chính.
+- Tạo, giao, sửa, ghi chú, phân công và cập nhật công việc/dự án.
+- Chọn người phụ trách đang hoạt động đúng phòng ban.
+- Dùng Agent để lập/duyệt kế hoạch dự án và phân công.
+- Xuất toàn bộ dự án ra Excel, gồm dữ liệu chi phí và tài chính.
+
+QUYỀN GIỮ RIÊNG CHO CEO
+- Tạo, khóa và quản trị tài khoản.
+- Xóa bản ghi trống. Dữ liệu đã có hồ sơ/chứng từ liên quan không được xóa.
+
+XUẤT EXCEL ĐẦU RA
+Đăng nhập tài khoản Ban quản trị > Dự án > Xuất Excel dự án > chọn dự án.
+Tệp .xlsx có 8 sheet:
+01 Dự án; 02 Công việc; 03 Hạng mục; 04 Gói khoán; 05 Báo cáo;
+06 Nghiệm thu; 07 Thu Chi; 08 Hồ sơ.
+File không chứa mật khẩu hoặc nội dung tệp đính kèm.
+
+CÀI TRÊN THIẾT BỊ
+- Máy CEO: giữ Docker Desktop và máy hoạt động; đây là máy chủ dữ liệu và Agent.
+- Máy nhân viên: không cài Docker; mở Chrome/Edge, vào địa chỉ app và đăng nhập.
+- Android: Chrome > dấu ba chấm > Cài đặt ứng dụng/Thêm vào màn hình chính.
+- iPhone/iPad: Safari > Chia sẻ > Thêm vào Màn hình chính.
+Điện thoại và máy nhân viên dùng chung dữ liệu trên máy CEO. Khi máy CEO, Docker,
+Internet hoặc Tunnel dừng thì thiết bị bên ngoài không truy cập được.
+
+KIỂM TRA SAU NÂNG CẤP
+1. Đăng nhập lần lượt ba tài khoản Ban quản trị.
+2. Mỗi tài khoản phải nhìn thấy nút Sửa/Ghi chú/Phân công và nút Xuất Excel.
+3. Tạo một việc thử, giao cho nhân sự đúng phòng ban rồi cập nhật tiến độ.
+4. Xuất một dự án và mở bằng Excel; phải đủ 8 sheet.
+5. Tài khoản ngoài Ban quản trị không được xuất toàn bộ dự án.
+6. Chỉ tài khoản CEO nhìn thấy thao tác xóa và quản trị tài khoản.
+7. Vào Nhân sự: danh sách nhân viên có nút Cập nhật nhân sự; danh sách tài khoản
+   đăng nhập có nút Cập nhật. Thử sửa thông tin một tài khoản ngoài CEO.
+8. Vào Vận hành > Giao việc mới, chọn phòng ban. Ô Người phụ trách phải hiện
+   cả nhân sự và tài khoản đăng nhập đang hoạt động thuộc đúng phòng ban.
+
+NGUYÊN TẮC CẬP NHẬT NHÂN SỰ
+- Cập nhật nhân sự: họ tên, phòng ban, chức vụ, điện thoại, email và tình trạng làm việc.
+- Cập nhật tài khoản: họ tên, email đăng nhập, phòng ban, vai trò và trạng thái.
+- Chỉ CEO được thực hiện các thay đổi này.
+- Tài khoản CEO được đổi họ tên/email nhưng luôn giữ vai trò CEO, phòng Ban quản trị
+  và trạng thái Hoạt động để tránh tự khóa hệ thống.
+
+Nếu lỗi gửi ảnh và kết quả: docker logs --tail 60 mnd-os-app-1
+Không gửi .env/mật khẩu. Không chạy docker compose down -v.

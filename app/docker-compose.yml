@@ -1,0 +1,38 @@
+name: mnd-os
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: mnd_os
+      POSTGRES_USER: mnd_admin
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - mnd_pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL","pg_isready -U mnd_admin -d mnd_os"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+  app:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      PORT: 3200
+      DATABASE_URL: postgresql://mnd_admin:${DB_PASSWORD}@db:5432/mnd_os
+      SESSION_SECRET: ${SESSION_SECRET}
+      CEO_NAME: ${CEO_NAME}
+      CEO_EMAIL: ${CEO_EMAIL}
+      CEO_PASSWORD: ${CEO_PASSWORD}
+    volumes:
+      - mnd_uploads:/data/uploads
+    ports:
+      - "3200:3200"
+volumes:
+  mnd_pg_data:
+    name: mnd_os_data
+  mnd_uploads:
+    name: mnd_os_uploads

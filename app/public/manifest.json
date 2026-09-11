@@ -1,0 +1,9 @@
+{
+  "name": "Mái Nhà Đẹp OS",
+  "short_name": "MND OS",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f4f7fb",
+  "theme_color": "#102f55",
+  "lang": "vi"
+}

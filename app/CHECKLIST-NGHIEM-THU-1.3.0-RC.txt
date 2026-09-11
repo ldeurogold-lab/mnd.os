@@ -1,0 +1,16 @@
+CHECKLIST NGHIỆM THU MÁI NHÀ ĐẸP OS 1.3.0 RC
+
+[ ] CEO đăng nhập bằng tài khoản cũ, không nhập lại thông tin.
+[ ] Tạo dự án, hợp đồng và dự toán đủ nhóm chi phí.
+[ ] Tạo vật tư, nhập kho, cấp theo dự án và kiểm tra tồn.
+[ ] Sản xuất giao việc, báo cáo/ảnh và cập nhật tiến độ.
+[ ] Thi công giao việc, cập nhật ảnh hiện trường.
+[ ] Nghiệm thu được duyệt rồi mới hoàn thành công việc.
+[ ] Kế toán ghi thu, chi, thanh toán và quyết toán theo dự án/lô.
+[ ] CEO xem dự toán, thực chi, đã thu và lợi nhuận từng dự án.
+[ ] Kiểm tra tài khoản và quyền của từng phòng ban.
+[ ] Sao lưu và chạy KIEM-TRA-PHUC-HOI.ps1 thành công.
+[ ] Cloudflare Access và hostname thử nghiệm hoạt động.
+[ ] Điện thoại 4G/5G đăng nhập, tải ảnh và cập nhật tiến độ.
+
+Chỉ đổi nhãn Production sau khi toàn bộ mục đạt và CEO ký duyệt.

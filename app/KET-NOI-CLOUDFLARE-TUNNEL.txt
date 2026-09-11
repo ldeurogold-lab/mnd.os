@@ -1,0 +1,16 @@
+CHUẨN BỊ KẾT NỐI CLOUDFLARE TUNNEL - MÁI NHÀ ĐẸP OS 1.3.0 RC
+
+1. Cài và kiểm tra ứng dụng tại http://localhost:3200 trước.
+2. Không mở cổng 3200 trên modem/router Internet.
+3. Giữ nguyên tuyến Eurogold OS hiện tại trong giai đoạn thử nghiệm.
+4. Tạo hostname THỬ NGHIỆM mới, ví dụ: rc-mainhadep.eurogoldos.vn.
+5. Nếu cloudflared chạy trong Docker Desktop, đặt Service URL:
+   http://host.docker.internal:3200
+6. Nếu cloudflared chạy trực tiếp trên Windows, đặt Service URL:
+   http://localhost:3200
+7. Bật Cloudflare Access và chỉ cho phép email nhân viên công ty.
+8. Kiểm tra bằng điện thoại dùng 4G/5G: đăng nhập, giao việc, tải ảnh và mở hồ sơ.
+9. Chỉ dùng hostname chính thức sau khi checklist RC được CEO duyệt toàn bộ.
+
+Tunnel chỉ chuyển tiếp kết nối. Dữ liệu PostgreSQL và tệp hồ sơ vẫn nằm trong
+hai volume mnd_os_data và mnd_os_uploads trên máy CEO.
